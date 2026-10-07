@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Descarte e-lixo</title>
+    <link rel="stylesheet" href="custom.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <style>
+        .mensagem-sucesso {
+            background-color: #f0fdf4;
+            border: 1px solid #12ffa7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .btn-recarregar {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #12ffa7;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-recarregar:hover {
+            background-color: #0b7046;
+        }
+
+        .mapa-container {
+            margin-top: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mapa-container h2 {
+            margin-bottom: 10px;
+        }
+
+        #mapa {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .aviso {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff7ed;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <header>
+
+        <h1>Descarte o material desejado</h1>
+
+        <p>
+            Selecione os objetos que deseja descartar.
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <section class="card">
+            <h2>Escolha os materiais desejados</h2>
+
+            <form id="form-descarte">
+
+                <div class="item">
+
+                    <label>
+                        <input type="checkbox" id="celular">Celular
+                    </label>
+
+
+                    <div class="quantidade" id="qtd-celular" style="display: none;">
+
+                        <label for="input-celular">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-celular"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="computador"
+                        >
+
+                        Computador
+                    </label>
+
+                    <div
+                        class="quantidade"
+                        id="qtd-computador"
+                        style="display: none;"
+                    >
+
+                        <label for="input-computador">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-computador"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="notebook"
+                        >
+
+                        Notebook
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-notebook"
+                        style="display: none;"
+                    >
+
+                        <label for="input-notebook">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-notebook"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="monitor"
+                        >
+
+                        Monitor
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-monitor"
+                        style="display: none;"
+                    >
+
+                        <label for="input-monitor">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-monitor"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="televisao"
+                        >
+
+                        Televisão
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-televisao"
+                        style="display: none;"
+                    >
+
+                        <label for="input-televisao">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-televisao"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="impressora"
+                        >
+
+                        Impressora
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-impressora"
+                        style="display: none;"
+                    >
+
+                        <label for="input-impressora">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-impressora"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="pilhas"
+                        >
+
+                        Pilhas e baterias
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-pilhas"
+                        style="display: none;"
+                    >
+
+                        <label for="input-pilhas">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-pilhas"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="item">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="perifericos"
+                        >
+
+                        Periféricos
+
+                    </label>
+
+
+                    <div
+                        class="quantidade"
+                        id="qtd-perifericos"
+                        style="display: none;"
+                    >
+
+                        <label for="input-perifericos">
+                            Quantidade:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="input-perifericos"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit">
+                    Confirmar descarte
+                </button>
+
+            </form>
+
+        </section>
+
+        <section
+            id="area-conteudo"
+            class="informacao"
+        >
+
+            <p>
+
+                Selecione os materiais acima e clique em
+
+                <strong>
+                    Confirmar descarte
+                </strong>.
+
+            </p>
+
+        </section>
+
+        <section class="mapa-container">
+
+            <h2>
+                Pontos de descarte em Juazeiro do Norte
+            </h2>
+
+            <p>
+                Consulte no mapa alguns pontos onde você pode
+                procurar informações sobre o descarte correto
+                de materiais eletrônicos.
+            </p>
+
+            <div id="mapa"></div>
+
+
+            <p class="aviso">
+
+                <strong>Atenção:</strong>
+
+                Antes de levar o material, confirme com o
+                ponto de coleta se ele recebe especificamente
+                o tipo de resíduo que você deseja descartar.
+
+            </p>
+
+        </section>
+
+    </main>
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+
+    <script>
+
+        const itensQuantidade = [
+
+            {
+                checkbox: "celular",
+                quantidade: "qtd-celular"
+            },
+
+            {
+                checkbox: "computador",
+                quantidade: "qtd-computador"
+            },
+
+            {
+                checkbox: "notebook",
+                quantidade: "qtd-notebook"
+            },
+
+            {
+                checkbox: "monitor",
+                quantidade: "qtd-monitor"
+            },
+
+            {
+                checkbox: "televisao",
+                quantidade: "qtd-televisao"
+            },
+
+            {
+                checkbox: "impressora",
+                quantidade: "qtd-impressora"
+            },
+
+            {
+                checkbox: "pilhas",
+                quantidade: "qtd-pilhas"
+            },
+
+            {
+                checkbox: "perifericos",
+                quantidade: "qtd-perifericos"
+            }
+
+        ];
+
+
+        itensQuantidade.forEach((item) => {
+
+            const checkbox =
+                document.getElementById(item.checkbox);
+
+            const quantidade =
+                document.getElementById(item.quantidade);
+
+
+            checkbox.addEventListener("change", function () {
+
+                if (this.checked) {
+
+                    quantidade.style.display = "block";
+
+                } else {
+
+                    quantidade.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+        document
+            .getElementById("form-descarte")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+
+                const itens = [
+
+                    {
+                        id: "celular",
+                        nome: "Celular",
+                        qtdId: "input-celular"
+                    },
+
+                    {
+                        id: "computador",
+                        nome: "Computador",
+                        qtdId: "input-computador"
+                    },
+
+                    {
+                        id: "notebook",
+                        nome: "Notebook",
+                        qtdId: "input-notebook"
+                    },
+
+                    {
+                        id: "monitor",
+                        nome: "Monitor",
+                        qtdId: "input-monitor"
+                    },
+
+                    {
+                        id: "televisao",
+                        nome: "Televisão",
+                        qtdId: "input-televisao"
+                    },
+
+                    {
+                        id: "impressora",
+                        nome: "Impressora",
+                        qtdId: "input-impressora"
+                    },
+
+                    {
+                        id: "pilhas",
+                        nome: "Pilhas e baterias",
+                        qtdId: "input-pilhas"
+                    },
+
+                    {
+                        id: "perifericos",
+                        nome: "Periféricos",
+                        qtdId: "input-perifericos"
+                    }
+
+                ];
+
+
+                let selecionados = [];
+
+
+                itens.forEach((item) => {
+
+                    const checkbox =
+                        document.getElementById(item.id);
+
+
+                    if (checkbox && checkbox.checked) {
+
+                        const qtd =
+                            document.getElementById(item.qtdId).value;
+
+
+                        selecionados.push(
+
+                            `<li>
+                                <strong>${item.nome}</strong>:
+                                ${qtd} unidade(s)
+                            </li>`
+
+                        );
+
+                    }
+
+                });
+
+
+                const conteudo =
+                    document.getElementById("area-conteudo");
+
+
+                if (selecionados.length > 0) {
+
+                    conteudo.innerHTML = `
+
+                        <div class="mensagem-sucesso">
+
+                            <h3>
+                                Solicitação de Descarte
+                                Registrada com Sucesso!
+                            </h3>
+
+                            <ul>
+                                ${selecionados.join("")}
+                            </ul>
+
+                            <button
+                                onclick="window.location.reload()"
+                                class="btn-recarregar"
+                            >
+                                Recarregar página
+                            </button>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    alert(
+                        "Selecione ao menos um item para descartar."
+                    );
+
+                }
+
+            });
+
+        const mapa = L.map("mapa").setView(
+            [-7.2131, -39.3153],
+            14
+        );
+
+        L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+      {
+        attribution:
+            "Tiles &copy; Esri"
+      }
+        ).addTo(mapa);
+
+        L.marker([
+            -7.2131,
+            -39.3153
+        ])
+        .addTo(mapa)
+        .bindPopup(`
+
+            <strong>Juazeiro do Norte</strong>
+
+            <br><br>
+
+            Região de referência para os
+            pontos de descarte eletrônico.
+
+        `);
+
+
+        const pontosDescarte = [
+
+            {
+                nome: "Ponto de coleta 1",
+                endereco: "Juazeiro do Norte - CE",
+                latitude: -7.2095,
+                longitude: -39.3150
+            },
+
+            {
+                nome: "Ponto de coleta 2",
+                endereco: "Juazeiro do Norte - CE",
+                latitude: -7.2200,
+                longitude: -39.3200
+            },
+
+            {
+                nome: "Ponto de coleta 3",
+                endereco: "Juazeiro do Norte - CE",
+                latitude: -7.2000,
+                longitude: -39.3050
+            }
+
+        ];
+
+        pontosDescarte.forEach((ponto) => {
+
+            L.marker([
+                ponto.latitude,
+                ponto.longitude
+            ])
+
+            .addTo(mapa)
+
+            .bindPopup(`
+
+                <strong>
+                    ${ponto.nome}
+                </strong>
+
+                <br>
+
+                ${ponto.endereco}
+
+                <br><br>
+
+                <strong>
+                    Confirme antes se o local
+                    recebe seu tipo de material.
+                </strong>
+
+            `);
+
+        });
+    </script>
+
+</body>
+</html>

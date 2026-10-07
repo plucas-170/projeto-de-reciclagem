@@ -1,0 +1,95 @@
+header{
+    text-align: center;
+    background-color:#1dbb4c;
+    width: 100%;
+    padding: 6px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    box-sizing: border-box;
+    
+}
+.card{
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+.quantidades{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 30px 0;
+}
+button{
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 20px;
+     background-color: #1dbb4c ;
+     color: white;
+     border: none;
+     cursor: pointer;
+}
+button:hover{
+    background-color: #0b7046;
+}
+.descricao{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+.opcoes {
+  display: flex;
+  flex-wrap: wrap; 
+  align-content: center;
+}
+.opcao {
+  width: 25%; 
+  box-sizing: border-box;
+  display:  flex;
+  text-align: justify;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.informacao {
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    justify-content: center;
+    display: flex; 
+}
+
+.aviso {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.quantidade {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+    main {
+        width: 95%;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .card,
+    .resultado,
+    .mapa-container {
+        padding: 18px;
+    }
+
+    #mapa {
+        height: 350px;
+    }
+}
